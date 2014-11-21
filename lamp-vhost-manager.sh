@@ -107,6 +107,7 @@ function add() {
     then
 	echo "Creating \"$VHOSTDOCROOT\"..."
 	mkdir $VHOSTDOCROOT
+	chmod 777 $VHOSTDOCROOT
 
      # Create git repository
       if [ $GIT == true ]
@@ -224,7 +225,7 @@ QUERY_INPUT
 
     # Enable virtual host
     echo "Running \"a2ensite $NAME\"..."
-    a2ensite $NAME>/dev/null 2>&1
+    a2ensite $NAME'.conf'>/dev/null 2>&1
 
     # Restart apache service
     echo "Running \"service apache2 restart\"..."
@@ -308,7 +309,7 @@ QUERY_INPUT
 
     # Disable virtual host
     echo "Running \"a2dissite $NAME\"..."
-    a2dissite $NAME >/dev/null 2>&1
+    a2dissite $NAME'.conf' >/dev/null 2>&1
 
     # Restart apache service
     echo "Running \"service apache2 restart\"..."
@@ -409,7 +410,7 @@ else
 fi
 
 # Virtual host file
-VHOSTFILE="/etc/apache2/sites-available/$NAME"
+VHOSTFILE="/etc/apache2/sites-available/$NAME.conf"
 
 # Virtual host document root
 VHOSTDOCROOT="$DOCROOT/$NAME"
